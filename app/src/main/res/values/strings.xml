@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">VIAGGIARE</string>
+    <string name="descripcion_imagen">logo</string>
+    <string name="descripcion_logo">logoapp</string>
+    <string name="title">VIAGGIARE</string>
+    <string name="descripcion_tittle">titulo</string>
+    <string name="ingrese_usuario">Usuario</string>
+    <string name="introducir_contrasena">Contraseña</string>
+    <string name="ingreso">INGRESAR</string>
+    <string name="pasararegister">Si aun no tienes cuenta dale en</string>
+    <string name="passregister">REGISTRATE</string>
+</resources>

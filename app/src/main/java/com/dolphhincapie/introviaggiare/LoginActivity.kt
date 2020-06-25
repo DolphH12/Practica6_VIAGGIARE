@@ -14,6 +14,14 @@ class LoginActivity : AppCompatActivity() {
     var  contrasena = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val datosRecibidos = intent.extras
+        if(datosRecibidos != null){
+            usuario = datosRecibidos.getString("usuario").toString()
+            contrasena = datosRecibidos.getString("contraseña").toString()
+        }
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 

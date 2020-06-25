@@ -29,6 +29,7 @@
     <string name="guardar">Registrate</string>
     <string name="bienvenido">bienvenido</string>
     <string name="descripcion_calendar">calendar_d</string>
+    <string name="cerrar_sesion">Cerrar Sesion</string>
 
     <string-array name="lista_ciudades">
         <item>Medellin</item>

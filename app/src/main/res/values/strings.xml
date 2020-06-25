@@ -9,4 +9,31 @@
     <string name="ingreso">INGRESAR</string>
     <string name="pasararegister">Si aun no tienes cuenta dale en</string>
     <string name="passregister">REGISTRATE</string>
+    <string name="nombre">Nombre</string>
+    <string name="registro">Registro</string>
+    <string name="Usuario">Usuario</string>
+    <string name="correo_electronico">Correo Electronico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="repita_contrasena">Repita Contraseña</string>
+    <string name="text_nacimiento">Fecha de Nacimiento</string>
+    <string name="fecha_nacimiento">dd/MM/yy</string>
+    <string name="ciudad">Ciudad de Nacimiento</string>
+    <string name="genero">Genero</string>
+    <string name="masculino">Masculino</string>
+    <string name="femenino">Femenino</string>
+    <string name="pasatiempos">Pasatiempos</string>
+    <string name="cine">Cine</string>
+    <string name="videojuegos">VideoJuegos</string>
+    <string name="series">Series</string>
+    <string name="deportes">Deportes</string>
+    <string name="guardar">Registrate</string>
+    <string name="bienvenido">bienvenido</string>
+    <string name="descripcion_calendar">calendar_d</string>
+
+    <string-array name="lista_ciudades">
+        <item>Medellin</item>
+        <item>Bogota</item>
+        <item>Cali</item>
+        <item>Barranquilla</item>
+    </string-array>
 </resources>

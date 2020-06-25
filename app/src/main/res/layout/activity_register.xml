@@ -96,10 +96,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
-                android:backgroundTint="@android:color/holo_blue_bright"
+                android:backgroundTint="@color/botones"
+                android:contentDescription="@string/descripcion_calendar"
                 android:onClick="onCalendarioButtonClicked"
-                app:srcCompat="@android:drawable/ic_menu_my_calendar"
-                android:contentDescription="@string/descripcion_calendar" />
+                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
         </LinearLayout>
 
         <TextView
@@ -138,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:buttonTint="@android:color/holo_blue_bright"
+                android:buttonTint="@color/botones"
                 android:checked="true"
                 android:text="@string/masculino"
                 android:textColorLink="@android:color/black"
@@ -149,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:buttonTint="@android:color/holo_blue_bright"
+                android:buttonTint="@color/botones"
                 android:text="@string/femenino"
                 android:textColorLink="@android:color/background_dark"
                 android:textCursorDrawable="@android:color/holo_green_light" />
@@ -174,7 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:buttonTint="@android:color/holo_blue_bright"
+                android:buttonTint="@color/botones"
                 android:text="@string/cine" />
 
             <CheckBox
@@ -182,7 +182,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:buttonTint="@android:color/holo_blue_bright"
+                android:buttonTint="@color/botones"
                 android:text="@string/videojuegos" />
 
             <CheckBox
@@ -190,7 +190,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:buttonTint="@android:color/holo_blue_bright"
+                android:buttonTint="@color/botones"
                 android:checked="false"
                 android:text="@string/series" />
 
@@ -199,7 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:buttonTint="@android:color/holo_blue_bright"
+                android:buttonTint="@color/botones"
                 android:text="@string/deportes" />
         </LinearLayout>
 
@@ -208,7 +208,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@android:color/holo_blue_bright"
+            android:background="@color/botones"
             android:text="@string/guardar"
             android:textAllCaps="true"
             android:textColor="@android:color/background_light" />

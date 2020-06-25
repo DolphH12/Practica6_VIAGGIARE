@@ -1,28 +1,21 @@
 package com.dolphhincapie.introviaggiare
 
 import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_register.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var datosRecibidos = intent.extras
+        val datosRecibidos = intent.extras
 
         tv_user.text = datosRecibidos?.getString("usuario")
         tv_contra.text = datosRecibidos?.getString("contraseña")
-
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -6,21 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
 
 class LoginActivity : AppCompatActivity() {
 
-    var usuario = ""
-    var  contrasena = ""
+    private var user = ""
+    private var  password = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val datosRecibidos = intent.extras
-        if(datosRecibidos != null){
-            usuario = datosRecibidos.getString("usuario").toString()
-            contrasena = datosRecibidos.getString("contraseña").toString()
-        }
-
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -31,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         bt_ingresar.setOnClickListener {
-            if (te_usuario.text.toString() == usuario && te_contrasena.text.toString() == contrasena){
+            if (te_usuario.text.toString() == user && te_contrasena.text.toString() == password){
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("usuario", te_usuario.text.toString())
                 intent.putExtra("contraseña", te_contrasena.text.toString())
@@ -49,8 +41,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1234 && resultCode == Activity.RESULT_OK){
-            usuario = data?.extras?.getString("usuario").toString()
-            contrasena = data?.extras?.getString("contraseña").toString()
+            user = data?.extras?.getString("usuario").toString()
+            password = data?.extras?.getString("contraseña").toString()
         }
     }
 

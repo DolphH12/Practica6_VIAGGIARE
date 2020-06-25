@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import java.util.*
-import kotlin.concurrent.timer
 import kotlin.concurrent.timerTask
 
 class SplashActivity : AppCompatActivity() {

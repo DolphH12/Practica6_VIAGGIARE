@@ -45,9 +45,9 @@ class RegisterActivity : AppCompatActivity() {
             val correo = et_correo.text.toString()
             val contrasena = et_contrasena.text.toString()
             val repContra = et_repitacontrasena.text.toString()
-            val genero = if(rb_masculino.isChecked) "Masculino" else "Femenino"
+            //val genero = if(rb_masculino.isChecked) "Masculino" else "Femenino"
             var pasatiempos = ""
-            val ciudadNacimiento = s_ciudades.selectedItem.toString()
+            //val ciudadNacimiento = s_ciudades.selectedItem.toString()
             val fechanaci = tv_calendar.text.toString()
 
 
@@ -74,13 +74,6 @@ class RegisterActivity : AppCompatActivity() {
             }
             else {
                 if (contrasena == repContra){
-                    //Toast.makeText(this, "Registro Completado", Toast.LENGTH_LONG).show()
-                    /*tv_result.text = "\nNombre: $nombre " +
-                            "\nCorreo: $correo " +
-                            "\nFecha de Nacimiento: $fecha " +
-                            "\nCiudad de Nacimiento: $ciudadNacimiento " +
-                            "\nGenero: $genero " +
-                            "\nPasatiempos:$pasatiempos \n"*/
                     val intent = Intent()
                     intent.putExtra("usuario", et_usuario.text.toString())
                     intent.putExtra("contraseña", et_contrasena.text.toString())

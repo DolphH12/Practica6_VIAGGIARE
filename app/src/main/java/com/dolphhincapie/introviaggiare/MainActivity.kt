@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_register.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,9 +32,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.m_cerrar) {
-            startActivity(Intent(this, LoginActivity::class.java))
             intent.putExtra("usuario", tv_user.text.toString())
             intent.putExtra("contraseña", tv_contra.text.toString())
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
         return super.onOptionsItemSelected(item)

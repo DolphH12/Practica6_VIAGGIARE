@@ -33,9 +33,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show()
             }
         }
-
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -46,8 +43,4 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
 }

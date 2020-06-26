@@ -30,9 +30,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.m_cerrar) {
+            val intent = Intent(this, LoginActivity::class.java)
             intent.putExtra("usuario", tv_user.text.toString())
             intent.putExtra("contraseña", contrasena)
-            setResult(Activity.RESULT_OK, intent)
+            startActivity(intent)
             finish()
         }
         return super.onOptionsItemSelected(item)

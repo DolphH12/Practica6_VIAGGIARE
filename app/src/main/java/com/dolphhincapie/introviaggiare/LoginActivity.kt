@@ -6,16 +6,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class LoginActivity : AppCompatActivity() {
 
-    private var user = ""
-    private var  password = ""
+    var user = ""
+    var  password = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val datosRecibidos = intent.extras
+
+        user = datosRecibidos?.getString("usuario").toString()
+        password = datosRecibidos?.getString("contraseña").toString()
 
         bt_passregister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -28,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
                 intent.putExtra("usuario", te_usuario.text.toString())
                 intent.putExtra("contraseña", te_contrasena.text.toString())
                 startActivity(intent)
+                finish()
             }
             else{
                 Toast.makeText(this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show()

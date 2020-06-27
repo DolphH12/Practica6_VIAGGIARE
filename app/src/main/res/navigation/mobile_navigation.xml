@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/navigation_user"
         android:name="com.dolphhincapie.introviaggiare.fragments.UserFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_user"
         tools:layout="@layout/fragment_user" >
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_notifications"
@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/navigation_places"
         android:name="com.dolphhincapie.introviaggiare.fragments.PlacesFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_places"
         tools:layout="@layout/fragment_places" >
         <action
             android:id="@+id/action_navigation_notifications_to_navigation_home"

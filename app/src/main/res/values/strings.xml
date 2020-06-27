@@ -2,7 +2,6 @@
     <string name="app_name">VIAGGIARE</string>
     <string name="descripcion_imagen">logo</string>
     <string name="descripcion_logo">logoapp</string>
-    <string name="title">VIAGGIARE</string>
     <string name="descripcion_tittle">titulo</string>
     <string name="ingrese_usuario">Usuario</string>
     <string name="introducir_contrasena">Contraseña</string>
@@ -37,4 +36,9 @@
         <item>Cali</item>
         <item>Barranquilla</item>
     </string-array>
+    <string name="title_activity_bottom_navigation">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

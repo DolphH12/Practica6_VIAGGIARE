@@ -58,16 +58,20 @@ class RegisterActivity : AppCompatActivity() {
 
 
             if(nombre.isEmpty()){
-                Toast.makeText(this, "Campo Nombre Vacio", Toast.LENGTH_LONG).show()
+                et_nombre.error = "Campo nombre vacio"
+                //Toast.makeText(this, "Campo Nombre Vacio", Toast.LENGTH_LONG).show()
             }
             else if (correo.isEmpty() || "@" !in correo){
-                Toast.makeText(this, "Campo Correo Invalido", Toast.LENGTH_LONG).show()
+                et_correo.error = "Campo correo vacio"
+                //Toast.makeText(this, "Campo Correo Invalido", Toast.LENGTH_LONG).show()
             }
             else if (contrasena.isEmpty()){
-                Toast.makeText(this, "Campo Contraseña Vacio", Toast.LENGTH_LONG).show()
+                et_contrasena.error = "Campo contraseña vacio"
+                //Toast.makeText(this, "Campo Contraseña Vacio", Toast.LENGTH_LONG).show()
             }
             else if (repContra.isEmpty()){
-                Toast.makeText(this, "Campo Rep Contraseña Vacio", Toast.LENGTH_LONG).show()
+                et_repitacontrasena.error = "Campo de repetir contraseña vacio"
+                //Toast.makeText(this, "Campo Rep Contraseña Vacio", Toast.LENGTH_LONG).show()
             }
             else if (fechanaci == "dd/MM/yy"){
                 Toast.makeText(this, "Campo Fecha Vacio", Toast.LENGTH_LONG).show()
@@ -81,6 +85,8 @@ class RegisterActivity : AppCompatActivity() {
                     finish()
                 }
                 else{
+                    et_contrasena.error
+                    et_repitacontrasena.error
                     Toast.makeText(this, "Contraseñas diferentes", Toast.LENGTH_LONG).show()
                 }
             }

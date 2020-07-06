@@ -40,5 +40,9 @@
     <string name="title_home">Home</string>
     <string name="title_user">Usuario</string>
     <string name="title_places">Lugares a Visitar</string>
+    <string name="texto_prueba">PRUEBA DE FUNCIONAMIENTO</string>
+    <string name="home_text">AQUI ESTA EL HOME, MAPA Y COMPARACIONES DE PRECIOS</string>
+    <string name="places_text">AQUI ESTA LUGARES A VISITAR</string>
+    <string name="user_text">AQUI ESTA EL PERFIL DEL USUARIO Y RESPECTIVAS CONFIGURACIONES</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -16,7 +16,7 @@
     <string name="repita_contrasena">Repita Contraseña</string>
     <string name="text_nacimiento">Fecha de Nacimiento</string>
     <string name="fecha_nacimiento">dd/MM/yy</string>
-    <string name="ciudad">Ciudad de Nacimiento</string>
+    <string name="ciudad">Ciudad de Residencia</string>
     <string name="genero">Genero</string>
     <string name="masculino">Masculino</string>
     <string name="femenino">Femenino</string>
@@ -44,5 +44,10 @@
     <string name="home_text">AQUI ESTA EL HOME, MAPA Y COMPARACIONES DE PRECIOS</string>
     <string name="places_text">AQUI ESTA LUGARES A VISITAR</string>
     <string name="user_text">AQUI ESTA EL PERFIL DEL USUARIO Y RESPECTIVAS CONFIGURACIONES</string>
+    <string name="bienvenida">Bienvenidos</string>
+    <string name="agregar_direccion">Agregar Direccion</string>
+    <string name="lugar">Nombre del Lugar</string>
+    <string name="direccion">Direccion del lugar</string>
+    <string name="anadir">AÑADIR</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

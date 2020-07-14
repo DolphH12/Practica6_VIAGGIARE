@@ -1,53 +1,63 @@
 package com.dolphhincapie.introviaggiare
 
-import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class LoginActivity : AppCompatActivity() {
 
     var user = ""
-    var  password = ""
+    var password = ""
+    val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val datosRecibidos = intent.extras
-
-        user = datosRecibidos?.getString("usuario").toString()
-        password = datosRecibidos?.getString("contraseña").toString()
-
         bt_passregister.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivityForResult(intent,1234)
+            goToResgistro()
+            finish()
         }
 
         bt_ingresar.setOnClickListener {
-            if (te_usuario.text.toString() == user && te_contrasena.text.toString() == password){
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("usuario", te_usuario.text.toString())
-                intent.putExtra("contraseña", te_contrasena.text.toString())
-                startActivity(intent)
-                finish()
-            }
-            else{
-                Toast.makeText(this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show()
-            }
+            val correo = te_usuario.text.toString()
+            val contrasena = te_contrasena.text.toString()
+
+            mAuth.signInWithEmailAndPassword(correo, contrasena)
+                .addOnCompleteListener(
+                    this
+                ) { task ->
+                    if (task.isSuccessful) {
+                        goToMainActivity()
+                    } else {
+                        Toast.makeText(
+                            this, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.w("TAG", "signInWithEmail:failure", task.exception)
+                    }
+                }
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1234 && resultCode == Activity.RESULT_OK){
-            user = data?.extras?.getString("usuario").toString()
-            password = data?.extras?.getString("contraseña").toString()
-        }
+    private fun goToMainActivity() {
+        startActivity(Intent(this, MainActivity::class.java))
     }
+
+    private fun goToResgistro() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
 
 }

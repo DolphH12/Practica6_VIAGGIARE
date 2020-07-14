@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/back">
+    android:background="@drawable/back">
 
 
     <LinearLayout
@@ -30,15 +30,6 @@
             android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:textColor="@android:color/background_dark" />
-
-        <EditText
-            android:id="@+id/et_usuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/Usuario"
-            android:inputType="textPersonName"
-            android:importantForAutofill="no" />
 
         <EditText
             android:id="@+id/et_correo"
@@ -68,41 +59,6 @@
             tools:ignore="Autofill" />
 
         <TextView
-            android:id="@+id/tv_fecha_de_nacimiento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_nacimiento"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_calendar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_weight="1"
-                android:text="@string/fecha_nacimiento"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <ImageButton
-                android:id="@+id/ib_calendar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:backgroundTint="@color/botones"
-                android:contentDescription="@string/descripcion_calendar"
-                android:onClick="onCalendarioButtonClicked"
-                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
-        </LinearLayout>
-
-        <TextView
             android:id="@+id/tv_ciudad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,89 +75,6 @@
             android:entries="@array/lista_ciudades"
             android:scrollbarSize="5dp"
             android:visibility="visible" />
-
-        <TextView
-            android:id="@+id/tv_genero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/genero"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rb_masculino"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/botones"
-                android:checked="true"
-                android:text="@string/masculino"
-                android:textColorLink="@android:color/black"
-                android:textCursorDrawable="@android:color/holo_green_light" />
-
-            <RadioButton
-                android:id="@+id/rb_femenino"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/botones"
-                android:text="@string/femenino"
-                android:textColorLink="@android:color/background_dark"
-                android:textCursorDrawable="@android:color/holo_green_light" />
-
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/tv_pasatiempos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pasatiempos"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cb_cine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/botones"
-                android:text="@string/cine" />
-
-            <CheckBox
-                android:id="@+id/cb_videojuegos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/botones"
-                android:text="@string/videojuegos" />
-
-            <CheckBox
-                android:id="@+id/cb_series"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/botones"
-                android:checked="false"
-                android:text="@string/series" />
-
-            <CheckBox
-                android:id="@+id/cb_deportes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:buttonTint="@color/botones"
-                android:text="@string/deportes" />
-        </LinearLayout>
 
         <Button
             android:id="@+id/bt_guardar"

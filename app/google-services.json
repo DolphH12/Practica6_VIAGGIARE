@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "814964172962",
+    "firebase_url": "https://viaggiare-37145.firebaseio.com",
+    "project_id": "viaggiare-37145",
+    "storage_bucket": "viaggiare-37145.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814964172962:android:8d6d802d48173e562a0ffb",
+        "android_client_info": {
+          "package_name": "com.dolphhincapie.introviaggiare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "814964172962-le6pt9503vgvkomfneefv9s4tbkv0gi3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQZhbKf-ynPHdEgt79ZQgWE2_96aTMoNI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "814964172962-le6pt9503vgvkomfneefv9s4tbkv0gi3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

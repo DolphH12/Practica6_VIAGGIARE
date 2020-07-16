@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dolphhincapie.introviaggiare.R
+import com.dolphhincapie.introviaggiare.model.FavoritosRVAdapter
 import com.dolphhincapie.introviaggiare.model.PlacesDeter
 import com.dolphhincapie.introviaggiare.model.Users
 import com.google.firebase.database.*
@@ -15,6 +18,8 @@ class UserFragment : Fragment() {
 
     //private lateinit var dashboardViewModel: DashboardViewModel
     var idUserFirebase: String? = ""
+    private var favoritosList: MutableList<PlacesDeter> = mutableListOf()
+    private lateinit var favoritosAdapter: FavoritosRVAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +67,39 @@ class UserFragment : Fragment() {
             ocultar_agregardir()
         }
 
+        cargarFavoritos()
+        rv_lugfav.layoutManager = LinearLayoutManager(
+            requireContext(),
+            RecyclerView.VERTICAL,
+            false
+        )
 
+        favoritosAdapter = FavoritosRVAdapter(favoritosList as ArrayList<PlacesDeter>)
+        rv_lugfav.adapter = favoritosAdapter
+
+
+    }
+
+    private fun cargarFavoritos() {
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference(idUserFirebase.toString())
+
+        val postListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (datasnapshot: DataSnapshot in snapshot.children) {
+                    val fav = datasnapshot.getValue(PlacesDeter::class.java)
+                    favoritosList.add(fav!!)
+                }
+                favoritosAdapter.notifyDataSetChanged()
+
+            }
+
+        }
+        myRef.addValueEventListener(postListener)
     }
 
     private fun mostrar_agregardir() {

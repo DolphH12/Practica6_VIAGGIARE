@@ -14,6 +14,13 @@ class LoginActivity : AppCompatActivity() {
     var password = ""
     val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
+    override fun onStart() {
+        super.onStart()
+        val user = mAuth.currentUser
+        if (user != null)
+            goToMainActivity()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

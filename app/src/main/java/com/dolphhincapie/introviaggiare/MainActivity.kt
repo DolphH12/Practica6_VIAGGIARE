@@ -1,6 +1,5 @@
 package com.dolphhincapie.introviaggiare
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_user, R.id.navigation_places
+                R.id.navigation_maps, R.id.navigation_user, R.id.navigation_places
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -45,8 +45,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.m_cerrar) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            FirebaseAuth.getInstance().signOut()
             finish()
         }
         return super.onOptionsItemSelected(item)

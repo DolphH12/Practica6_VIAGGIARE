@@ -12,6 +12,8 @@ import com.dolphhincapie.introviaggiare.R
 import com.dolphhincapie.introviaggiare.model.FavoritosRVAdapter
 import com.dolphhincapie.introviaggiare.model.PlacesDeter
 import com.dolphhincapie.introviaggiare.model.Users
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_user.*
 
@@ -21,6 +23,11 @@ class UserFragment : Fragment() {
     var idUserFirebase: String? = ""
     private var favoritosList: MutableList<PlacesDeter> = mutableListOf()
     private lateinit var favoritosAdapter: FavoritosRVAdapter
+    private lateinit var myRef: DatabaseReference
+
+    val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    val user: FirebaseUser? = mAuth.currentUser
+    val correo = user?.uid.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +71,7 @@ class UserFragment : Fragment() {
 
     private fun cargaDatosUser() {
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("usuarios")
+        myRef = database.getReference("usuarios")
 
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -83,11 +90,12 @@ class UserFragment : Fragment() {
 
         }
         myRef.addListenerForSingleValueEvent(postListener)
+
     }
 
     private fun cargarFavoritos() {
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference(idUserFirebase.toString())
+        myRef = database.getReference(correo)
 
         val postListener = object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -125,7 +133,7 @@ class UserFragment : Fragment() {
         direccion: String
     ) {
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-        val myRef: DatabaseReference = database.getReference(idUserFirebase.toString())
+        val myRef: DatabaseReference = database.getReference(correo)
         val id: String? = myRef.push().key
 
         val lugar_frecuente = PlacesDeter(
@@ -135,5 +143,6 @@ class UserFragment : Fragment() {
         )
         myRef.child(id!!).setValue(lugar_frecuente)
     }
+
 
 }

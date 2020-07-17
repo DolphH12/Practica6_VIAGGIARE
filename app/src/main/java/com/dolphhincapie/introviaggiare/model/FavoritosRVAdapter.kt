@@ -30,7 +30,9 @@ class FavoritosRVAdapter(
         fun bindFavoritos(favoritos: PlacesDeter) {
             itemView.tv_lugar.text = favoritos.lugar
             itemView.tv_direccion.text = favoritos.direccion
-            Log.d("MUESTRA", favoritos.lugar)
+            if (favoritos.lugar.isNullOrEmpty())
+                itemView.tv_lugar.text = "Esta vacio"
+            Log.d("VERGA", "Esta vacio")
         }
     }
 }

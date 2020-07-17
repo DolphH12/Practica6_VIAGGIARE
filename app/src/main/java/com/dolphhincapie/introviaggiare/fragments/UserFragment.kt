@@ -58,6 +58,7 @@ class UserFragment : Fragment() {
                 et_direccion.error = "Campo Vacio"
             } else {
                 crearLugaresFrecuentes(lugar, direccion)
+                ocultar_agregardir()
             }
         }
 

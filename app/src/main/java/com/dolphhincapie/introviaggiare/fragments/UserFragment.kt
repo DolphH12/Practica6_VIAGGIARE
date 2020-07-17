@@ -52,8 +52,13 @@ class UserFragment : Fragment() {
         bt_ingresardir.setOnClickListener {
             val lugar = et_lugar.text.toString()
             val direccion = et_direccion.text.toString()
-            crearLugaresFrecuentes(lugar, direccion)
-            ocultar_agregardir()
+            if (lugar.isNullOrEmpty()) {
+                et_lugar.error = "Campo vacio"
+            } else if (direccion.isNullOrEmpty()) {
+                et_direccion.error = "Campo Vacio"
+            } else {
+                crearLugaresFrecuentes(lugar, direccion)
+            }
         }
 
         cargarFavoritos()
@@ -143,6 +148,4 @@ class UserFragment : Fragment() {
         )
         myRef.child(id!!).setValue(lugar_frecuente)
     }
-
-
 }

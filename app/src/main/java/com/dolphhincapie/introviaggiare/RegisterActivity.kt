@@ -2,7 +2,6 @@ package com.dolphhincapie.introviaggiare
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dolphhincapie.introviaggiare.model.Users
@@ -58,11 +57,27 @@ class RegisterActivity : AppCompatActivity() {
                                 ).show()
                                 onBackPressed()
                             } else {
-                                Toast.makeText(
-                                    this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                Log.w("TAG", "signInWithEmail:failure", task.exception)
+                                val mensaje = task.exception!!.message.toString()
+                                if ("already" in mensaje) {
+                                    Toast.makeText(
+                                        this, "El correo ya se encuentra registrado",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    et_correo.error = "Campo Inválido"
+                                } else if ("formatted" in mensaje) {
+                                    Toast.makeText(
+                                        this, "El formato del correo es inválido",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    et_correo.error = "Campo Inválido"
+                                } else {
+                                    Toast.makeText(
+                                        this, "El formato del correo es inválido",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    et_contrasena.error = "Campo Inválido"
+                                    et_repitacontrasena.error = "Campo Inválido"
+                                }
                             }
 
                             // ...

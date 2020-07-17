@@ -68,43 +68,31 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/botones"
-            android:fontFamily="cursive"
+            android:background="@android:drawable/toast_frame"
+            android:backgroundTint="@color/dimgray"
+            android:fontFamily="sans-serif-condensed-medium"
             android:shadowColor="@android:color/background_dark"
             android:text="@string/ingreso"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/te_contrasena" />
 
-        <TextView
-            android:id="@+id/tv_pasararegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="cursive"
-            android:text="@string/pasararegister"
-            android:textColor="@android:color/background_dark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bt_ingresar" />
-
         <Button
             android:id="@+id/bt_passregister"
-            android:layout_width="80dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="584dp"
-            android:background="@color/botones"
-            android:fontFamily="cursive"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:drawable/toast_frame"
+            android:backgroundTint="@color/dimgray"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="@string/passregister"
-            android:textColor="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
             android:textColorLink="@android:color/background_dark"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/tv_pasararegister"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_ingresar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

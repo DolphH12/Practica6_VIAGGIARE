@@ -35,25 +35,42 @@ class LoginActivity : AppCompatActivity() {
             val correo = te_usuario.text.toString()
             val contrasena = te_contrasena.text.toString()
 
-            mAuth.signInWithEmailAndPassword(correo, contrasena)
-                .addOnCompleteListener(
-                    this
-                ) { task ->
-                    if (task.isSuccessful) {
-                        goToMainActivity()
-                    } else {
-                        Toast.makeText(
-                            this, "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        Log.w("TAG", "signInWithEmail:failure", task.exception)
+            if (correo.isNullOrEmpty()) {
+                te_usuario.error = "Campo Vacio"
+            } else if (contrasena.isNullOrEmpty()) {
+                te_contrasena.error = "Campo vacio"
+            } else {
+                mAuth.signInWithEmailAndPassword(correo, contrasena)
+                    .addOnCompleteListener(
+                        this
+                    ) { task ->
+                        if (task.isSuccessful) {
+                            goToMainActivity()
+                        } else {
+                            val mensaje = task.exception!!.message.toString()
+                            if ("password" in mensaje) {
+                                Toast.makeText(
+                                    this, "Contraseña incorrecta",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                te_contrasena.error = "Campo Incorrecto"
+                            } else {
+                                Toast.makeText(
+                                    this, "Correo Inválido o no Registrado",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                te_usuario.error = "Campo Incorrecto"
+                            }
+                            Log.w("TAG", "signInWithEmail:failure", task.exception)
+                        }
                     }
-                }
+            }
         }
     }
 
     private fun goToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private fun goToResgistro() {

@@ -1,5 +1,6 @@
 package com.dolphhincapie.introviaggiare.model
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,9 @@ class FavoritosRVAdapter(
 ) : RecyclerView.Adapter<FavoritosRVAdapter.FavoritosViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritosViewHolder {
-        val itemView2 =
+        val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.favoritos_item, parent, false)
-        return FavoritosViewHolder(itemView2)
+        return FavoritosViewHolder(itemView)
     }
 
     override fun getItemCount(): Int = favoritosList.size
@@ -29,6 +30,7 @@ class FavoritosRVAdapter(
         fun bindFavoritos(favoritos: PlacesDeter) {
             itemView.tv_lugar.text = favoritos.lugar
             itemView.tv_direccion.text = favoritos.direccion
+            Log.d("MUESTRA", favoritos.lugar)
         }
     }
 }

@@ -75,7 +75,8 @@
                 android:id="@+id/rv_lugfav"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/listDivider" />
+                android:background="?android:attr/listDivider"
+                tools:listitem="@layout/favoritos_item" />
         </ScrollView>
 
         <Button

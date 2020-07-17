@@ -1,6 +1,7 @@
 package com.dolphhincapie.introviaggiare.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,26 +36,7 @@ class UserFragment : Fragment() {
 
         ocultar_agregardir()
 
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("usuarios")
-
-        val postListener = object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (datasnapshot: DataSnapshot in snapshot.children) {
-                    val user = datasnapshot.getValue(Users::class.java)
-                    tv_nombre.text = user?.nombre
-                    tv_correo.text = user?.correo
-                    idUserFirebase = user?.id
-
-                }
-            }
-
-        }
-        myRef.addListenerForSingleValueEvent(postListener)
+        cargaDatosUser()
 
         bt_aggdir.setOnClickListener {
             mostrar_agregardir()
@@ -80,6 +62,29 @@ class UserFragment : Fragment() {
 
     }
 
+    private fun cargaDatosUser() {
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("usuarios")
+
+        val postListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (datasnapshot: DataSnapshot in snapshot.children) {
+                    val user = datasnapshot.getValue(Users::class.java)
+                    tv_nombre.text = user?.nombre
+                    tv_correo.text = user?.correo
+                    idUserFirebase = user?.id
+
+                }
+            }
+
+        }
+        myRef.addListenerForSingleValueEvent(postListener)
+    }
+
     private fun cargarFavoritos() {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference(idUserFirebase.toString())
@@ -93,13 +98,14 @@ class UserFragment : Fragment() {
                 for (datasnapshot: DataSnapshot in snapshot.children) {
                     val fav = datasnapshot.getValue(PlacesDeter::class.java)
                     favoritosList.add(fav!!)
+                    Log.d("Favoritos", fav.lugar)
                 }
                 favoritosAdapter.notifyDataSetChanged()
 
             }
 
         }
-        myRef.addValueEventListener(postListener)
+        myRef.addListenerForSingleValueEvent(postListener)
     }
 
     private fun mostrar_agregardir() {

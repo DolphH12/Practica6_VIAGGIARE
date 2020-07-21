@@ -59,6 +59,7 @@ class UserFragment : Fragment() {
             } else {
                 crearLugaresFrecuentes(lugar, direccion)
                 ocultar_agregardir()
+                cargarFavoritos()
             }
         }
 
@@ -86,10 +87,10 @@ class UserFragment : Fragment() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (datasnapshot: DataSnapshot in snapshot.children) {
-                    val user = datasnapshot.getValue(Users::class.java)
-                    tv_nombre.text = user?.nombre
-                    tv_correo.text = user?.correo
-                    idUserFirebase = user?.id
+                    val user2 = datasnapshot.getValue(Users::class.java)
+                    tv_nombre.text = "Hola: "
+                    tv_correo.text = user?.email.toString()
+                    idUserFirebase = user2?.id
 
                 }
             }
@@ -109,6 +110,7 @@ class UserFragment : Fragment() {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
+                favoritosList.clear()
                 for (datasnapshot: DataSnapshot in snapshot.children) {
                     val fav = datasnapshot.getValue(PlacesDeter::class.java)
                     favoritosList.add(fav!!)

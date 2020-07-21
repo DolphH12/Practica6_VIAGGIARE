@@ -3,6 +3,7 @@ package com.dolphhincapie.introviaggiare
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -34,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
         bt_ingresar.setOnClickListener {
             val correo = te_usuario.text.toString()
             val contrasena = te_contrasena.text.toString()
-
+            progressBar.visibility = View.VISIBLE
             if (correo.isNullOrEmpty()) {
                 te_usuario.error = "Campo Vacio"
             } else if (contrasena.isNullOrEmpty()) {
@@ -45,6 +46,7 @@ class LoginActivity : AppCompatActivity() {
                         this
                     ) { task ->
                         if (task.isSuccessful) {
+                            progressBar.visibility = View.GONE
                             goToMainActivity()
                         } else {
                             val mensaje = task.exception!!.message.toString()
@@ -61,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
                                 ).show()
                                 te_usuario.error = "Campo Incorrecto"
                             }
+                            progressBar.visibility = View.GONE
                             Log.w("TAG", "signInWithEmail:failure", task.exception)
                         }
                     }

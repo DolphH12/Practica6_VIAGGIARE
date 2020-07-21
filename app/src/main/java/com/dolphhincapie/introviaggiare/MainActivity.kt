@@ -1,5 +1,6 @@
 package com.dolphhincapie.introviaggiare
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -46,9 +47,15 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.m_cerrar) {
             FirebaseAuth.getInstance().signOut()
-            finish()
+            goToLoginActivity()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun goToLoginActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }

@@ -1,11 +1,15 @@
 package com.dolphhincapie.introviaggiare.fragments
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.dolphhincapie.introviaggiare.R
@@ -16,12 +20,18 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PointOfInterest
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.dialog_layout.view.*
 
 
-class MapsFragment : Fragment() {
+class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var lastKnowLocation: Location
+    private var medellin = LatLng(6.2442876, -75.616231)
 
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -34,14 +44,26 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
+
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setMessage("Seleccione una Ubicación para mas detalles")
+                setPositiveButton("Entendido") { dialog, id ->
+
+                }
+            }
+            builder.create()
+        }
+        alertDialog?.show()
+
         fusedLocationClient =
             LocationServices.getFusedLocationProviderClient(this.requireActivity())
         mMap = googleMap
         activarMyLocation()
         mMap.uiSettings.isZoomControlsEnabled = true
 
-        val medellin = LatLng(6.2442876, -75.616231)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(medellin, 13f))
+        mMap.setOnPoiClickListener(this)
 
     }
 
@@ -82,8 +104,57 @@ class MapsFragment : Fragment() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
+        val locationResult = fusedLocationClient.lastLocation
+        locationResult.addOnCompleteListener(requireActivity()) { task ->
+            if (task.isSuccessful) {
+                lastKnowLocation = task.result!!
+                if (lastKnowLocation != null) {
+                    mMap.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            LatLng(lastKnowLocation.latitude, lastKnowLocation.longitude),
+                            13F
+                        )
+                    )
+                    mMap.addMarker(
+                        MarkerOptions().position(
+                            LatLng(
+                                lastKnowLocation.latitude,
+                                lastKnowLocation.longitude
+                            )
+                        ).title("Usuario")
+                    )
+                }
+            } else {
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(medellin, 13F))
+            }
+        }
         mMap.isMyLocationEnabled = true
+
     }
 
+    @SuppressLint("SetTextI18n")
+    override fun onPoiClick(poi: PointOfInterest?) {
+        /*Toast.makeText(
+            context,
+            "Nombre ${poi?.name}, latitud ${poi?.latLng?.latitude}, longitud ${poi?.latLng?.longitude}", Toast.LENGTH_SHORT
+        ).show()*/
+        val dialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.dialog_layout, null)
+
+        view.tv_nombre.text = poi?.name
+        view.tv_latitud.text = poi?.latLng?.latitude.toString()
+        view.tv_longitud.text = poi?.latLng?.longitude.toString()
+        view.tv_servicio.text = "Servicio\n UBER"
+        view.tv_distancia.text = "Varios Km por medir"
+
+        val close = view.findViewById<ImageView>(R.id.iv_close)
+        close.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.setCancelable(false)
+        dialog.setContentView(view)
+        dialog.show()
+
+    }
 
 }

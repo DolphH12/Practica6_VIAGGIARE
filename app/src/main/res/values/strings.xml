@@ -6,7 +6,6 @@
     <string name="ingrese_usuario">Usuario</string>
     <string name="introducir_contrasena">Contraseña</string>
     <string name="ingreso">INGRESAR</string>
-    <string name="pasararegister">Si aun no tienes cuenta dale en</string>
     <string name="passregister">REGISTRATE</string>
     <string name="nombre">Nombre</string>
     <string name="registro">Registro</string>
@@ -14,20 +13,8 @@
     <string name="correo_electronico">Correo Electronico</string>
     <string name="contrasena">Contraseña</string>
     <string name="repita_contrasena">Repita Contraseña</string>
-    <string name="text_nacimiento">Fecha de Nacimiento</string>
-    <string name="fecha_nacimiento">dd/MM/yy</string>
     <string name="ciudad">Ciudad de Residencia</string>
-    <string name="genero">Genero</string>
-    <string name="masculino">Masculino</string>
-    <string name="femenino">Femenino</string>
-    <string name="pasatiempos">Pasatiempos</string>
-    <string name="cine">Cine</string>
-    <string name="videojuegos">VideoJuegos</string>
-    <string name="series">Series</string>
-    <string name="deportes">Deportes</string>
     <string name="guardar">Registrate</string>
-    <string name="bienvenido">bienvenido</string>
-    <string name="descripcion_calendar">calendar_d</string>
     <string name="cerrar_sesion">Cerrar Sesion</string>
 
     <string-array name="lista_ciudades">
@@ -40,15 +27,19 @@
     <string name="title_home">Home</string>
     <string name="title_user">Usuario</string>
     <string name="title_places">Lugares a Visitar</string>
-    <string name="texto_prueba">PRUEBA DE FUNCIONAMIENTO</string>
-    <string name="home_text">AQUI ESTA EL HOME, MAPA Y COMPARACIONES DE PRECIOS</string>
-    <string name="places_text">AQUI ESTA LUGARES A VISITAR</string>
-    <string name="user_text">AQUI ESTA EL PERFIL DEL USUARIO Y RESPECTIVAS CONFIGURACIONES</string>
-    <string name="bienvenida">Bienvenidos</string>
     <string name="agregar_direccion">Agregar Direccion</string>
     <string name="lugar">Nombre del Lugar</string>
     <string name="direccion">Direccion del lugar</string>
     <string name="anadir">AÑADIR</string>
     <string name="title_placesint">Lugares para Visitar</string>
+    <string name="cient">Cliente</string>
+    <string name="driver">Conductor</string>
+    <string name="auto">Marca Automovil</string>
+    <string name="placa">Placa Automovil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_main_driver">MainActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="google_maps_key">AIzaSyBwMQMRJvn6TESnNhHFAiCLEWVSpJtJKjc</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

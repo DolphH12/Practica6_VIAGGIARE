@@ -20,15 +20,15 @@ class SplashActivity : AppCompatActivity() {
         val timer = Timer()
         timer.schedule(
             timerTask {
-                goToLoginActivity()
+                goToChooseActivity()
             }, 1000
         )
 
 
     }
 
-    private fun goToLoginActivity() {
-        val intent = Intent(this, LoginActivity::class.java)
+    private fun goToChooseActivity() {
+        val intent = Intent(this, ChooseActivity::class.java)
         startActivity(intent)
         finish()
     }

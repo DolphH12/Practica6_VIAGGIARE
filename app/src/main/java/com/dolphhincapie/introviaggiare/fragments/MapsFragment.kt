@@ -3,9 +3,13 @@ package com.dolphhincapie.introviaggiare.fragments
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +24,12 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PointOfInterest
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.dialog_layout.view.*
+import java.io.IOException
 
 
 class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
@@ -32,39 +38,34 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastKnowLocation: Location
     private var medellin = LatLng(6.2442876, -75.616231)
+    private lateinit var mMarker: Marker
 
 
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-
-        val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.apply {
-                setMessage("Seleccione una Ubicación para mas detalles")
-                setPositiveButton("Entendido") { dialog, id ->
-
-                }
-            }
-            builder.create()
-        }
-        alertDialog?.show()
 
         fusedLocationClient =
             LocationServices.getFusedLocationProviderClient(this.requireActivity())
         mMap = googleMap
+
         activarMyLocation()
         mMap.uiSettings.isZoomControlsEnabled = true
 
         mMap.setOnPoiClickListener(this)
 
+    }
+
+    private fun messageActiveGPS() {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setMessage("Por favor active la ubicacion.")
+                setPositiveButton("Configuraciones") { dialog, id ->
+                    startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                }
+            }
+            builder.create()
+        }
+        alertDialog?.show()
     }
 
     override fun onCreateView(
@@ -107,25 +108,36 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         val locationResult = fusedLocationClient.lastLocation
         locationResult.addOnCompleteListener(requireActivity()) { task ->
             if (task.isSuccessful) {
-                lastKnowLocation = task.result!!
-                if (lastKnowLocation != null) {
-                    mMap.moveCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                            LatLng(lastKnowLocation.latitude, lastKnowLocation.longitude),
-                            13F
-                        )
-                    )
-                    mMap.addMarker(
-                        MarkerOptions().position(
-                            LatLng(
-                                lastKnowLocation.latitude,
-                                lastKnowLocation.longitude
+                try {
+                    lastKnowLocation = task.result!!
+                    if (lastKnowLocation != null) {
+                        mMap.moveCamera(
+                            CameraUpdateFactory.newLatLngZoom(
+                                LatLng(lastKnowLocation.latitude, lastKnowLocation.longitude),
+                                13F
                             )
-                        ).title("Usuario")
-                    )
+                        )
+                        mMap.addMarker(
+                            MarkerOptions().position(
+                                LatLng(
+                                    lastKnowLocation.latitude,
+                                    lastKnowLocation.longitude
+                                )
+                            ).title("Usuario")
+                        )
+                    }
+                } catch (e: IOException) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(medellin, 13F))
+                    if (!gpsActived()) {
+                        messageActiveGPS()
+                    }
                 }
+
             } else {
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(medellin, 13F))
+                if (!gpsActived()) {
+                    messageActiveGPS()
+                }
             }
         }
         mMap.isMyLocationEnabled = true
@@ -155,6 +167,16 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         dialog.setContentView(view)
         dialog.show()
 
+    }
+
+    private fun gpsActived(): Boolean {
+        var isActive = false
+        val locationManager: LocationManager? =
+            activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+        if (locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            isActive = true
+        }
+        return isActive
     }
 
 }

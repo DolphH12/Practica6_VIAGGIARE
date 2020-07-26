@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation_driver"
+    app:startDestination="@id/navigation_maps_driver">
+
+    <fragment
+        android:id="@+id/navigation_maps_driver"
+        android:name="com.dolphhincapie.introviaggiare.fragments.MapsDriverFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_maps_driver">
+        <action
+            android:id="@+id/action_mapsDriverFragment_to_placesDriverFragment"
+            app:destination="@id/navigation_places_driver" />
+        <action
+            android:id="@+id/action_mapsDriverFragment_to_userDriverFragment"
+            app:destination="@id/navigation_user_driver" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_places_driver"
+        android:name="com.dolphhincapie.introviaggiare.fragments.PlacesDriverFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_places_driver" />
+    <fragment
+        android:id="@+id/navigation_user_driver"
+        android:name="com.dolphhincapie.introviaggiare.fragments.UserDriverFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_user_driver">
+        <action
+            android:id="@+id/action_userDriverFragment_to_placesDriverFragment"
+            app:destination="@id/navigation_places_driver" />
+    </fragment>
+</navigation>

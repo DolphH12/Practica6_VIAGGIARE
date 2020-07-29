@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_dashboard"
             app:destination="@id/navigation_user" />
+        <action
+            android:id="@+id/action_navigation_maps_to_detailRequestFragment"
+            app:destination="@id/navigation_detailRequest" />
     </fragment>
 
     <fragment
@@ -29,9 +32,27 @@
         android:id="@+id/navigation_places"
         android:name="com.dolphhincapie.introviaggiare.fragments.PlacesFragment"
         android:label="@string/title_places"
-        tools:layout="@layout/fragment_places" >
+        tools:layout="@layout/fragment_places">
         <action
             android:id="@+id/action_navigation_notifications_to_navigation_home"
             app:destination="@id/navigation_maps" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_detailRequest"
+        android:name="com.dolphhincapie.introviaggiare.fragments.RequestDriverFragment"
+        android:label="fragment_detail_driver"
+        tools:layout="@layout/fragment_request_driver">
+        <argument
+            android:name="origin_lng"
+            android:defaultValue='""'
+            app:argType="string" />
+        <argument
+            android:name="destination_lat"
+            android:defaultValue='""'
+            app:argType="string" />
+        <argument
+            android:name="destination_lng"
+            android:defaultValue='""'
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user = mAuth.currentUser
         if (user != null)
-                goToMainDriverActivity()
+                goToMainActivity()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
                     ) { task ->
                         if (task.isSuccessful) {
                             progressBar.visibility = View.GONE
-                            goToMainDriverActivity()
+                            goToMainActivity()
                         } else {
                             val mensaje = task.exception!!.message.toString()
                             if ("password" in mensaje) {

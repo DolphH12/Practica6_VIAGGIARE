@@ -2,189 +2,139 @@ package com.dolphhincapie.introviaggiare.fragments
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Build
+import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
+import android.os.Handler
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.dolphhincapie.introviaggiare.R
-import com.google.android.gms.location.*
+import com.dolphhincapie.introviaggiare.model.GeofireProvider
+import com.dolphhincapie.introviaggiare.model.TokenProvider
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.PointOfInterest
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.dialog_layout.view.*
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_maps_driver.*
+import java.io.IOException
 
-class MapsDriverFragment : Fragment(), GoogleMap.OnPoiClickListener {
+
+class MapsDriverFragment : Fragment() {
 
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var lastKnowLocation: Location
+    private var lastKnowLocation: Location? = null
     private var medellin = LatLng(6.2442876, -75.616231)
-    private lateinit var mMarker: Marker
-    private var mLocationRequest: LocationRequest? = null
-    private var LOCATION_REQUEST_CODE = 1
-
+    private var mMarker: Marker? = null
+    lateinit var mainHandler: Handler
+    private var mIsConnection = false
+    private var ban = false
+    private var mGeofireProvider: GeofireProvider = GeofireProvider()
+    private lateinit var mCurrentLatLng: LatLng
+    val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var mTokenProvider: TokenProvider = TokenProvider()
 
     private val callback = OnMapReadyCallback { googleMap ->
+
+        fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(this.requireActivity())
         mMap = googleMap
 
-        mLocationRequest?.interval = 1000
-        mLocationRequest?.fastestInterval = 1000
-        mLocationRequest?.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mLocationRequest?.smallestDisplacement = 5F
-
-        startLocation()
-
         mMap.uiSettings.isZoomControlsEnabled = true
+        //mMap.setOnPoiClickListener(this)
 
-        mMap.setOnPoiClickListener(this)
+        bt_conexion.setOnClickListener {
+            if (mIsConnection) {
+                ban = false
+                disconnect()
+            } else {
+                activarMyLocation()
+                ban = true
+                ejecutar()
+            }
+
+        }
+
+        generateToken()
 
     }
 
-
-    /*mLocationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            for (location in locationResult.locations) {
-                if (activity?.applicationContext != null) {
-                    // OBTENER LA LOCALIZACION DEL USUARIO EN TIEMPO REAL
-                    mMap.moveCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                            LatLng(location.latitude, location.longitude),
-                            15F
-                        )
-
-                    )
+    private fun ejecutar() {
+        mainHandler = Handler()
+        mainHandler.postDelayed(object : Runnable {
+            override fun run() {
+                if (ban) {
+                    activarMyLocation() //llamamos nuestro metodo
+                    mainHandler.postDelayed(this, 1000) //se ejecutara cada 10 segundos
+                } else {
+                    mainHandler.removeCallbacks(this)
                 }
             }
-        }
-    }*/
-
-    private var mLocationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult?) {
-            locationResult ?: return
-            for (location in locationResult.locations) {
-                mMap.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        LatLng(location.latitude, location.longitude),
-                        15F
-                    )
-
-                )
-            }
-        }
+        }, 5000) //empezara a ejecutarse después de 5 milisegundos
     }
 
+    fun setBan() {
+        mIsConnection = false
+        ban = false
+        //mainHandler.removeCallbacksAndMessages(null)
+    }
+
+
+    private fun messageActiveGPS() {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setMessage("Por favor active la ubicacion.")
+                setPositiveButton("Configuraciones") { dialog, id ->
+                    startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                }
+            }
+            builder.create()
+        }
+        alertDialog?.show()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        return inflater.inflate(R.layout.fragment_maps_driver, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        fusedLocationClient =
-            LocationServices.getFusedLocationProviderClient(this.requireActivity())
-
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.map_driver) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
 
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.checkSelfPermission(
-                        requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    fusedLocationClient.requestLocationUpdates(
-                        mLocationRequest,
-                        mLocationCallback,
-                        Looper.myLooper()
-                    )
-                } else {
-                    checkLocationPermission()
-                }
-            } else {
-                checkLocationPermission()
-            }
-        }
+    private fun disconnect() {
+        mIsConnection = false
+        bt_conexion.text = getString(R.string.conectarse_driver)
+        val user = mAuth.currentUser
+        if (user != null)
+            mGeofireProvider.removeLocation(mAuth.uid)
     }
 
 
-    private fun startLocation() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(
-                    requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                fusedLocationClient.requestLocationUpdates(
-                    mLocationRequest,
-                    mLocationCallback,
-                    Looper.myLooper()
-                )
-            } else {
-                checkLocationPermission()
-            }
-        } else {
-            fusedLocationClient.requestLocationUpdates(
-                mLocationRequest,
-                mLocationCallback,
-                Looper.myLooper()
-            )
-        }
-    }
-
-    private fun checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    requireContext() as Activity,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            ) {
-                messageActivePermisos()
-            } else {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                    LOCATION_REQUEST_CODE
-                )
-            }
-        }
-    }
-
-/*    private fun activarMyLocation() {
+    private fun activarMyLocation() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -198,48 +148,72 @@ class MapsDriverFragment : Fragment(), GoogleMap.OnPoiClickListener {
                 arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                 1234
             )
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return
         }
-        fusedLocationClient.requestLocationUpdates(mLocationRequest,  )
+        mIsConnection = true
+        bt_conexion.text = getString(R.string.desconectarse_driver)
         val locationResult = fusedLocationClient.lastLocation
         locationResult.addOnCompleteListener(requireActivity()) { task ->
             if (task.isSuccessful) {
                 try {
-                    lastKnowLocation = task.result!!
+                    lastKnowLocation = task.result
                     if (lastKnowLocation != null) {
+                        mCurrentLatLng =
+                            LatLng(lastKnowLocation!!.latitude, lastKnowLocation!!.longitude)
                         mMap.moveCamera(
                             CameraUpdateFactory.newLatLngZoom(
-                                LatLng(lastKnowLocation.latitude, lastKnowLocation.longitude),
-                                13F
+                                mCurrentLatLng,
+                                16F
                             )
                         )
+                        mMarker?.remove()
                         mMarker = mMap.addMarker(
                             MarkerOptions().position(
-                                LatLng(
-                                    lastKnowLocation.latitude,
-                                    lastKnowLocation.longitude
-                                )
-                            ).title("Conductor")
+                                mCurrentLatLng
+                            ).title("Usuario")
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.car))
                         )
+                        updateLocation()
                     }
-                }catch (e: IOException){
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(medellin, 13F))
+                } catch (e: IOException) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(medellin, 16F))
+                    if (!gpsActived()) {
+                        messageActiveGPS()
+                    }
                 }
+
             } else {
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(medellin, 13F))
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(medellin, 16F))
+                if (!gpsActived()) {
+                    messageActiveGPS()
+                }
             }
         }
-        mMap.isMyLocationEnabled = true
+        mMap.isMyLocationEnabled = false
 
-    }*/
+    }
+
+    private fun updateLocation() {
+        val user = mAuth.currentUser
+        if (user != null && mCurrentLatLng != null) {
+            mGeofireProvider.saveLocation(mAuth.currentUser?.uid, mCurrentLatLng)
+        }
+
+    }
 
     @SuppressLint("SetTextI18n")
-    override fun onPoiClick(poi: PointOfInterest?) {
-        /*Toast.makeText(
+/*    override fun onPoiClick(poi: PointOfInterest?) {
+        *//*Toast.makeText(
             context,
             "Nombre ${poi?.name}, latitud ${poi?.latLng?.latitude}, longitud ${poi?.latLng?.longitude}", Toast.LENGTH_SHORT
-        ).show()*/
+        ).show()*//*
         val dialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.dialog_layout, null)
 
@@ -257,37 +231,29 @@ class MapsDriverFragment : Fragment(), GoogleMap.OnPoiClickListener {
         dialog.setContentView(view)
         dialog.show()
 
+    }*/
+
+    private fun gpsActived(): Boolean {
+        var isActive = false
+        val locationManager: LocationManager? =
+            activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+        if (locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            isActive = true
+        }
+        return isActive
     }
 
-    private fun messageActiveGPS() {
-        val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.apply {
-                setMessage("Por favor active la ubicacion.")
-                setPositiveButton("Configuraciones") { dialog, id ->
-                    startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-                }
-            }
-            builder.create()
+    override fun onDestroy() {
+        super.onDestroy()
+        ban = false
+        val user = mAuth.currentUser
+        if (user != null) {
+            mGeofireProvider.removeLocation(user.uid)
         }
-        alertDialog?.show()
     }
 
-    private fun messageActivePermisos() {
-        val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.apply {
-                setMessage("Esta aplicacion requiere permisos de ubicacion")
-                setPositiveButton("Ok") { dialog, id ->
-                    ActivityCompat.requestPermissions(
-                        requireActivity(),
-                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                        LOCATION_REQUEST_CODE
-                    )
-                }
-            }
-            builder.create()
-        }
-        alertDialog?.show()
+    private fun generateToken() {
+        mTokenProvider.create(mAuth.currentUser?.uid)
     }
+
 }

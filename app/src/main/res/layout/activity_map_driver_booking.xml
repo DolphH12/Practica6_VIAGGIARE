@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map_viaje"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".driver.MapDriverBookingActivity">
+
+    <Button
+        android:id="@+id/bt_startBooking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@android:drawable/toast_frame"
+        android:backgroundTint="@color/dimgray"
+        android:text="INICIAR VIAJE"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/bt_finishBooking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@android:drawable/toast_frame"
+        android:backgroundTint="@color/darkslategray"
+        android:text="FINALIZAR VIAJE"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+    <fragment
+        android:id="@+id/map_driver_booking"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <com.github.florent37.shapeofview.shapes.BubbleView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_gravity="bottom"
+        app:shape_bubble_arrowHeight="15dp"
+        app:shape_bubble_arrowPosition="top"
+        app:shape_bubble_arrowWidth="15dp"
+        app:shape_bubble_borderRadius="20dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/quantum_googblueA700" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_clientBooking"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center|top"
+                android:layout_margin="10dp"
+                android:src="@drawable/person"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="5dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_originclientbooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:maxLines="1"
+                    android:text="Lugar de Origen"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_destinationclientbooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:maxLines="1"
+                    android:text="Lugar de Destino"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_nameclientbooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:maxLines="1"
+                    android:text="Nombre del usuario"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_emailclientbooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:maxLines="1"
+                    android:text="Email del usuario"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </com.github.florent37.shapeofview.shapes.BubbleView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

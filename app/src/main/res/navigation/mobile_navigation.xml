@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_maps"
-        android:name="com.dolphhincapie.introviaggiare.fragments.MapsFragment"
+        android:name="com.dolphhincapie.introviaggiare.client.MapsFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_maps">
         <action
@@ -20,17 +20,20 @@
 
     <fragment
         android:id="@+id/navigation_user"
-        android:name="com.dolphhincapie.introviaggiare.fragments.UserFragment"
+        android:name="com.dolphhincapie.introviaggiare.client.UserFragment"
         android:label="@string/title_user"
-        tools:layout="@layout/fragment_user" >
+        tools:layout="@layout/fragment_user">
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_notifications"
             app:destination="@id/navigation_places" />
+        <action
+            android:id="@+id/action_navigation_user_to_navigation_historyBookingClient"
+            app:destination="@id/navigation_historyBookingClient" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_places"
-        android:name="com.dolphhincapie.introviaggiare.fragments.PlacesFragment"
+        android:name="com.dolphhincapie.introviaggiare.client.PlacesFragment"
         android:label="@string/title_places"
         tools:layout="@layout/fragment_places">
         <action
@@ -39,8 +42,8 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_detailRequest"
-        android:name="com.dolphhincapie.introviaggiare.fragments.RequestDriverFragment"
-        android:label="fragment_detail_driver"
+        android:name="com.dolphhincapie.introviaggiare.client.RequestDriverFragment"
+        android:label="@string/title_map_client_booking"
         tools:layout="@layout/fragment_request_driver">
         <argument
             android:name="origin_lng"
@@ -54,5 +57,43 @@
             android:name="destination_lng"
             android:defaultValue='""'
             app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_detailRequest_to_mapClientBookingFragment"
+            app:destination="@id/navigation_mapClientBooking" />
+        <action
+            android:id="@+id/action_navigation_detailRequest_to_navigation_maps"
+            app:destination="@id/navigation_maps" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_mapClientBooking"
+        android:name="com.dolphhincapie.introviaggiare.client.MapClientBookingFragment"
+        android:label="@string/title_map_client_booking"
+        tools:layout="@layout/fragment_map_client_booking">
+        <action
+            android:id="@+id/action_navigation_mapClientBooking_to_navigation_calificationDriver"
+            app:destination="@id/navigation_calificationDriver" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_calificationDriver"
+        android:name="com.dolphhincapie.introviaggiare.client.CalificationDriverFragment"
+        android:label="@string/title_calification"
+        tools:layout="@layout/fragment_calification_driver">
+        <action
+            android:id="@+id/action_navigation_calificationDriver_to_navigation_maps"
+            app:destination="@id/navigation_maps" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_historyBookingClient"
+        android:name="com.dolphhincapie.introviaggiare.client.HistoryBookingClientFragment"
+        android:label="Historial de Viajes"
+        tools:layout="@layout/fragment_history_booking_client">
+        <action
+            android:id="@+id/action_navigation_historyBookingClient_to_navigation_historyBookingDetailClient"
+            app:destination="@id/navigation_historyBookingDetailClient" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_historyBookingDetailClient"
+        android:name="com.dolphhincapie.introviaggiare.client.HistoryBookingDetailClientFragment"
+        android:label="fragment_history_booking_detail_client"
+        tools:layout="@layout/fragment_history_booking_detail_client" />
 </navigation>

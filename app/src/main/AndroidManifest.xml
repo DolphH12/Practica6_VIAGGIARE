@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -22,10 +24,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".driver.NotificationBookingActivity"></activity>
+        <activity android:name=".driver.CalificationClientActivity" />
+        <activity android:name=".driver.MapDriverBookingActivity" />
+
+        <receiver
+            android:name=".receives.AcceptReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name=".receives.CancelReceiver"
+            android:enabled="true" />
+
         <activity
-            android:name=".MainDriverActivity"
-            android:label="@string/title_activity_main_driver"></activity>
-        <activity android:name=".ChooseActivity" />
+            android:name=".activities.MainDriverActivity"
+            android:label="@string/title_activity_main_driver" />
+        <activity android:name=".activities.ChooseActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -45,11 +58,11 @@
         </service>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/title_activity_bottom_navigation" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

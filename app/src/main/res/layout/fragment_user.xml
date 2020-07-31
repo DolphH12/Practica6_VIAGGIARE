@@ -6,154 +6,146 @@
     android:layout_height="match_parent"
     android:background="@drawable/back"
     android:fillViewport="true"
-    tools:context=".fragments.UserFragment">
+    tools:context=".client.UserFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView3"
+        <ProgressBar
+            android:id="@+id/pb_carga"
+            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/retrow_mentho"
-            android:text="@string/Usuario"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="127dp"
-            android:layout_height="118dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/gray_buscador"
-            android:src="@drawable/user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            tools:ignore="ContentDescription" />
+        <com.github.florent37.shapeofview.shapes.ArcView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:elevation="4dp"
+            app:shape_arc_height="20dp"
+            app:shape_arc_position="bottom">
 
-        <TextView
-            android:id="@+id/tv_nombre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/common_google_signin_btn_text_light_pressed"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-        <TextView
-            android:id="@+id/tv_correo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/common_google_signin_btn_text_light_pressed"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_nombre" />
-
-        <Button
-            android:id="@+id/bt_aggdir"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginEnd="60dp"
-            android:background="@android:drawable/toast_frame"
-            android:backgroundTint="@color/gray_buscador"
-            android:text="@string/agregar_direccion"
-            android:textColor="@android:color/background_light"
-            app:layout_constraintBottom_toTopOf="@id/textInputLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
-            android:layout_width="272dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_lugar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/lugar"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout2"
-            android:layout_width="272dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/bt_ingresardir"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_direccion"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/direccion"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
-            android:layout_width="0dp"
-            android:layout_height="203dp"
-            android:layout_marginBottom="10dp"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@+id/bt_aggdir"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.045"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_lugfav"
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/listDivider"
-                tools:listitem="@layout/favoritos_item" />
-        </androidx.core.widget.NestedScrollView>
+                android:background="@color/quantum_googblueA700" />
 
-        <Button
-            android:id="@+id/bt_ingresardir"
-            android:layout_width="208dp"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:fontFamily="@font/retrow_mentho"
+                    android:text="@string/Usuario"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_perfilClient"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center|top"
+                    android:src="@drawable/person"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="5dp" />
+
+            </LinearLayout>
+        </com.github.florent37.shapeofview.shapes.ArcView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:background="@android:drawable/toast_frame"
-            android:backgroundTint="@color/gray_buscador"
-            android:text="@string/anadir"
-            android:textColor="@color/cardview_light_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginTop="250dp"
+            android:orientation="vertical">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/te_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Nombre del Usuario"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/bt_actualizar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/toast_frame"
+                    android:backgroundTint="@color/gray_buscador"
+                    android:text="ACTUALIZAR"
+                    android:textColor="@android:color/background_light" />
+
+                <Button
+                    android:id="@+id/bt_historial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/toast_frame"
+                    android:backgroundTint="@color/gray_buscador"
+                    android:text="HISTORIAL DE VIAJES"
+                    android:textColor="@android:color/background_light" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/bt_cerrarSesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="50dp"
+                android:layout_weight="1"
+                android:background="@android:drawable/toast_frame"
+                android:backgroundTint="@color/darkslategray"
+                android:text="CERRAR SESION"
+                android:textColor="@android:color/background_light" />
+
+        </LinearLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </ScrollView>

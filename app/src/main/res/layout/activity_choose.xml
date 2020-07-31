@@ -5,55 +5,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back"
-    tools:context=".SplashActivity">
+    tools:context=".activities.SplashActivity">
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_Logo"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+        <ProgressBar
+            android:id="@+id/pb_choose"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:contentDescription="@string/descripcion_imagen"
-            app:srcCompat="@drawable/logo" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginBottom="200dp"
-            app:srcCompat="@drawable/titulo" />
+            android:layout_marginTop="200dp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/bt_cliente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:drawable/toast_frame"
-                android:backgroundTint="@color/darkgray"
-                android:text="@string/cient"
-                android:textColor="@android:color/white" />
+            <ImageView
+                android:id="@+id/iv_Logo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:contentDescription="@string/descripcion_imagen"
+                app:srcCompat="@drawable/logo" />
 
-            <Button
-                android:id="@+id/bt_conductor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:drawable/toast_frame"
-                android:backgroundTint="@color/dimgray"
-                android:text="@string/driver"
-                android:textColor="@color/white" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginBottom="200dp"
+                app:srcCompat="@drawable/titulo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/bt_cliente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/toast_frame"
+                    android:backgroundTint="@color/darkgray"
+                    android:text="@string/cient"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/bt_conductor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/toast_frame"
+                    android:backgroundTint="@color/dimgray"
+                    android:text="@string/driver"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </ScrollView>

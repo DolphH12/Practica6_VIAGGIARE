@@ -38,13 +38,14 @@
     <string name="placa">Placa Automovil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_main_driver">MainActivity</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="conectarse">CONECTARSE</string>
     <string name="conectarse_driver">CONECTARSE</string>
     <string name="desconectarse_driver">DESCONECTARSE</string>
     <string name="solicitar_viaje">SOLICITAR VIAJE</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_map_client_booking">Mapa de viaje</string>
+    <string name="title_calification">Califica al conductor</string>
+    <string name="conductor">Conductor</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

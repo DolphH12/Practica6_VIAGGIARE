@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".fragments.MapsFragment" />
+        tools:context=".client.MapsFragment" />
 
     <LinearLayout
         android:id="@+id/linearLayout_search"

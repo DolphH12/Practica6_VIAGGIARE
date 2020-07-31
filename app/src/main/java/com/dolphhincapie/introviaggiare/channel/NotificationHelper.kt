@@ -61,6 +61,26 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
             .setSound(soundUri)
             .setContentIntent(intent)
             .setSmallIcon(R.drawable.ic_car)
+            .setStyle(Notification.BigTextStyle().bigText(body).setBigContentTitle(title))
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getNotificationAction(
+        title: String,
+        body: String,
+        soundUri: Uri,
+        acceptAction: Notification.Action,
+        cancelAction: Notification.Action
+    ): Notification.Builder {
+        return Notification.Builder(applicationContext, CHANNEL_ID)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setAutoCancel(true)
+            .setSound(soundUri)
+            .setSmallIcon(R.drawable.ic_car)
+            .addAction(acceptAction)
+            .addAction(cancelAction)
+            .setStyle(Notification.BigTextStyle().bigText(body).setBigContentTitle(title))
     }
 
 
@@ -77,6 +97,25 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
             .setSound(soundUri)
             .setContentIntent(intent)
             .setSmallIcon(R.drawable.ic_car)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(body).setBigContentTitle(title))
+    }
+
+    fun getNotificationOldApiActions(
+        title: String,
+        body: String,
+        soundUri: Uri,
+        acceptAction: NotificationCompat.Action,
+        cancelAction: NotificationCompat.Action
+    ): NotificationCompat.Builder {
+        return NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setAutoCancel(true)
+            .setSound(soundUri)
+            .setSmallIcon(R.drawable.ic_car)
+            .addAction(acceptAction)
+            .addAction(cancelAction)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(body).setBigContentTitle(title))
     }
 
 }

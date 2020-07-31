@@ -7,28 +7,34 @@
 
     <fragment
         android:id="@+id/navigation_maps_driver"
-        android:name="com.dolphhincapie.introviaggiare.fragments.MapsDriverFragment"
-        android:label="fragment_home"
+        android:name="com.dolphhincapie.introviaggiare.driver.MapsDriverFragment"
+        android:label="@string/title_home"
         tools:layout="@layout/fragment_maps_driver">
-        <action
-            android:id="@+id/action_mapsDriverFragment_to_placesDriverFragment"
-            app:destination="@id/navigation_places_driver" />
         <action
             android:id="@+id/action_mapsDriverFragment_to_userDriverFragment"
             app:destination="@id/navigation_user_driver" />
     </fragment>
     <fragment
-        android:id="@+id/navigation_places_driver"
-        android:name="com.dolphhincapie.introviaggiare.fragments.PlacesDriverFragment"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_places_driver" />
-    <fragment
         android:id="@+id/navigation_user_driver"
-        android:name="com.dolphhincapie.introviaggiare.fragments.UserDriverFragment"
-        android:label="fragment_notifications"
+        android:name="com.dolphhincapie.introviaggiare.driver.UserDriverFragment"
+        android:label="@string/title_user"
         tools:layout="@layout/fragment_user_driver">
         <action
-            android:id="@+id/action_userDriverFragment_to_placesDriverFragment"
-            app:destination="@id/navigation_places_driver" />
+            android:id="@+id/action_navigation_user_driver_to_navigation_historyBookingDriver"
+            app:destination="@id/navigation_historyBookingDriver" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_historyBookingDriver"
+        android:name="com.dolphhincapie.introviaggiare.driver.HistoryBookingDriverFragment"
+        android:label="fragment_history_booking_driver"
+        tools:layout="@layout/fragment_history_booking_driver">
+        <action
+            android:id="@+id/action_navigation_historyBookingDriver_to_navigation_historyBookingDetailDriver"
+            app:destination="@id/navigation_historyBookingDetailDriver" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_historyBookingDetailDriver"
+        android:name="com.dolphhincapie.introviaggiare.driver.HistoryBookingDetailDriverFragment"
+        android:label="fragment_history_booking_detail_driver"
+        tools:layout="@layout/fragment_history_booking_detail_driver" />
 </navigation>

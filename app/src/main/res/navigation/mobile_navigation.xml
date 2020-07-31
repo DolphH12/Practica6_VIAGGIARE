@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_navigation_notifications_to_navigation_home"
             app:destination="@id/navigation_maps" />
+        <action
+            android:id="@+id/action_navigation_places_to_navigation_maps"
+            app:destination="@id/navigation_maps" />
     </fragment>
     <fragment
         android:id="@+id/navigation_detailRequest"

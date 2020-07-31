@@ -88,6 +88,8 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     private var mDestination: String = ""
     private var mTime: String = ""
     private var mDistance: String = ""
+    private var longitudPlaces: String? = null
+    private var latitudPlaces: String? = null
     private var total: Double = 0.0
     private lateinit var mOriginLatLng: LatLng
     private lateinit var mDestinationLatLng: LatLng
@@ -125,6 +127,32 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         mPlaces = Places.createClient(requireContext())
         instanceAutocompleteOrigin()
         instanceAutocompleteDestination()
+
+        latitudPlaces = arguments?.getString("latitud").toString()
+        longitudPlaces = arguments?.getString("longitud").toString()
+        Log.d("pinches3", "$latitudPlaces, $longitudPlaces")
+        if (latitudPlaces != "null" || longitudPlaces != "null") {
+            try {
+                val geoCoder: Geocoder = Geocoder(requireContext())
+                val addresList: List<Address> =
+                    geoCoder.getFromLocation(
+                        latitudPlaces!!.toDouble(),
+                        longitudPlaces!!.toDouble(),
+                        1
+                    )
+                val city = addresList[0].locality.toString()
+                val country = addresList[0].countryName.toString()
+                val address = addresList[0].getAddressLine(0)
+                mDestination = "$address $city"
+                mAutoCompleteDestination.setText("$address $city")
+                Log.d("pinches4", "$address $city")
+            } catch (
+                e: Exception
+            ) {
+                Log.d("pinches5", e.message.toString())
+            }
+
+        }
 
         onCameraMove()
 
@@ -357,6 +385,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
@@ -520,31 +549,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
         })
     }
 
-/*    @SuppressLint("SetTextI18n")
-    override fun onPoiClick(poi: PointOfInterest?) {
-        Toast.makeText(
-            context,
-            "Nombre ${poi?.name}, latitud ${poi?.latLng?.latitude}, longitud ${poi?.latLng?.longitude}", Toast.LENGTH_SHORT
-        ).show()
-        val dialog = BottomSheetDialog(requireContext())
-        val view = layoutInflater.inflate(R.layout.dialog_layout, null)
-
-        view.tv_nombre.text = poi?.name
-        view.tv_latitud.text = poi?.latLng?.latitude.toString()
-        view.tv_longitud.text = poi?.latLng?.longitude.toString()
-        view.tv_servicio.text = "Servicio\n UBER"
-        view.tv_distancia.text = "Varios Km por medir"
-
-        val close = view.findViewById<ImageView>(R.id.iv_close)
-        close.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.setCancelable(false)
-        dialog.setContentView(view)
-        dialog.show()
-
-    }*/
-
     private fun gpsActived(): Boolean {
         var isActive = false
         val locationManager: LocationManager? =
@@ -586,5 +590,6 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
     private fun generateToken() {
         mTokenProvider.create(mAuth.currentUser?.uid)
     }
+
 
 }

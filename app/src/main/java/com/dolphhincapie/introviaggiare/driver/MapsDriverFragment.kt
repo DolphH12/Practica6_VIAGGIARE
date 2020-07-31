@@ -91,7 +91,6 @@ class MapsDriverFragment : Fragment() {
         ban = true
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         if (mListener != null) {

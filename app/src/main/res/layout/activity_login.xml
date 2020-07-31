@@ -73,7 +73,7 @@
             android:fontFamily="sans-serif"
             android:hint="@string/ingrese_usuario"
             android:importantForAutofill="no"
-            android:inputType="textPersonName"
+            android:inputType="textWebEmailAddress"
             android:textColorLink="@android:color/background_dark"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"

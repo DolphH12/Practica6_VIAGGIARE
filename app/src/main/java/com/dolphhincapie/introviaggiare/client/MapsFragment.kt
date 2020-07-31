@@ -145,6 +145,7 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
                 val address = addresList[0].getAddressLine(0)
                 mDestination = "$address $city"
                 mAutoCompleteDestination.setText("$address $city")
+                mDestinationLatLng = LatLng(latitudPlaces!!.toDouble(), longitudPlaces!!.toDouble())
                 Log.d("pinches4", "$address $city")
             } catch (
                 e: Exception
@@ -265,6 +266,8 @@ class MapsFragment : Fragment(), GoogleMap.OnPoiClickListener {
             })
 
         view.bt_solicitar.setOnClickListener {
+            mMap.clear()
+            mPolylineOptions = PolylineOptions()
             goToRequestDriver()
             dialog.dismiss()
         }

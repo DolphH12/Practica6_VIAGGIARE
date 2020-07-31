@@ -93,6 +93,10 @@ class RequestDriverFragment : Fragment() {
             cancelRequest()
         }
 
+        iv_backRequest.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
         getClosestDriver()
 
     }

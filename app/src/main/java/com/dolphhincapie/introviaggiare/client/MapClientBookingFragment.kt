@@ -187,7 +187,10 @@ class MapClientBookingFragment : Fragment() {
                         var image: String = ""
                         if (snapshot.hasChild("image")) {
                             image = snapshot.child("image").value.toString()
-                            Picasso.get().load(image).into(iv_DriverBooking)
+                            if (image.isNotEmpty()) {
+                                Picasso.get().load(image).into(iv_DriverBooking)
+                            }
+
                         }
                         tv_namedriverbooking.text = name
                         tv_emaildriverbooking.text = email

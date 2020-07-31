@@ -104,7 +104,9 @@ class UserDriverFragment : Fragment() {
                         var image: String = ""
                         if (snapshot.hasChild("image")) {
                             image = snapshot.child("image").value.toString()
-                            Picasso.get().load(image).into(iv_perfilDriver)
+                            if (image.isNotEmpty()) {
+                                Picasso.get().load(image).into(iv_perfilDriver)
+                            }
                         }
                         te_nameDriver.setText(name)
                         te_carDriver.setText(auto)

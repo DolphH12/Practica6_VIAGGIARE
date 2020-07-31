@@ -70,7 +70,9 @@ class HistoryBookingClientAdapter(
                             itemView.tv_nameHistory.text = name
                             if (snapshot.hasChild("image")) {
                                 val image = snapshot.child("image").value.toString()
-                                Picasso.get().load(image).into(itemView.iv_historyBooking)
+                                if (image.isNotEmpty()) {
+                                    Picasso.get().load(image).into(itemView.iv_historyBooking)
+                                }
                             }
 
                         }

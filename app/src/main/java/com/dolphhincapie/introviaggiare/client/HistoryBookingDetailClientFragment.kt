@@ -74,7 +74,10 @@ class HistoryBookingDetailClientFragment : Fragment() {
                                         tv_nameDetailClient.text = name.toUpperCase()
                                         if (snapshot.hasChild("image")) {
                                             val image = snapshot.child("image").value.toString()
-                                            Picasso.get().load(image).into(iv_driverDetailClient)
+                                            if (image.isNotEmpty()) {
+                                                Picasso.get().load(image)
+                                                    .into(iv_driverDetailClient)
+                                            }
                                         }
 
                                     }

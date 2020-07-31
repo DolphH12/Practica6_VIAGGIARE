@@ -100,7 +100,9 @@ class UserFragment : Fragment() {
                         var image: String = ""
                         if (snapshot.hasChild("image")) {
                             image = snapshot.child("image").value.toString()
-                            Picasso.get().load(image).into(iv_perfilClient)
+                            if (image.isNotEmpty()) {
+                                Picasso.get().load(image).into(iv_perfilClient)
+                            }
                         }
                         te_name.setText(name)
                         pb_carga.visibility = View.GONE

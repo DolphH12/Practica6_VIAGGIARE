@@ -250,7 +250,9 @@ class MapDriverBookingActivity : AppCompatActivity(), OnMapReadyCallback {
                         var image: String = ""
                         if (snapshot.hasChild("image")) {
                             image = snapshot.child("image").value.toString()
-                            Picasso.get().load(image).into(iv_clientBooking)
+                            if (image.isNotEmpty()) {
+                                Picasso.get().load(image).into(iv_clientBooking)
+                            }
                         }
                         tv_nameclientbooking.text = name
                         tv_emailclientbooking.text = email
